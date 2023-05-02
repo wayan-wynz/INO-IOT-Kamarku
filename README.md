@@ -3,7 +3,7 @@ Code Arduino IDE IOT Kamarku
 Device NodeMCU LOLIN ESP8266
 
 IOT Monitoring Konten:
-= Terkoneksi dengan Bylnk Control & Monitoring (Use Bylnk APK Version 2.27.32)
+= Terkoneksi dengan Blynk Control & Monitoring (Use Blynk APK Version 2.27.32)
 = Pantau Rekapitulasi Suhu & Kelembaban Berbasis Website PHP Protocol HTTPS
 
 Code Arduino Include function :
