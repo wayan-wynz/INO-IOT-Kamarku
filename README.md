@@ -15,8 +15,8 @@ Code Arduino Include function :
 = Monitoring Duino Coin Miner
 
 PIN NodeMCU Used :
-= A0 -> LDR Sensor
-= D1 -> LED RGB ws2812b
+= A0 -> LDR Sensor 
+= D1 -> LED RGB ws2812b 
 = D2 -> LED Indikator
 = D3 -> Relay Saklar
 = D5 -> DHT Sensor
