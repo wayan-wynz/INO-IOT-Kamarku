@@ -20,7 +20,7 @@ String httpGetString(String URL)
         if (httpCode == HTTP_CODE_OK) {
             payload = http.getString();
         } else {
-            Serial.printf("[HTTP] GET... losss, error: %s\n", http.errorToString(httpCode).c_str());
+            Serial.printf("DUCO [HTTP] GET... losss, error: %s\n", http.errorToString(httpCode).c_str());
         }
         http.end();
     }
@@ -29,7 +29,7 @@ String httpGetString(String URL)
 
 void Duco_view()
 {
-  if (runningTerus(run_in_ms)) 
+  if (runningTerus(5000)) 
   {
         float totalHashrate = 0.0;
         float avgHashrate = 0.0;
@@ -45,8 +45,8 @@ void Duco_view()
         DeserializationError error = deserializeJson(doc, input);
 
         if (error) {
-            Serial.print("deserializeJson() gagal: ");
-            Serial.println(error.c_str());
+//            Serial.print("deserializeJson() gagal: ");
+//            Serial.println(error.c_str());
             return;
         }
 
@@ -75,7 +75,8 @@ void Duco_view()
         }
 
         avgHashrate = totalHashrate / long(total_miner);
-        long run_span = run_in_ms / 1000;
+//      long run_span = run_in_ms / 1000;
+        long run_span = 5000 / 1000;
 
 
 /*
@@ -95,17 +96,17 @@ void Duco_view()
 //        Serial.println("total_miner : " + String(total_miner));
 //        Serial.println("==================");
 
-        Serial.println("DUCO Username  : " + String(result_balance_username));
-        Serial.println("Total DUCO     : " + String(result_balance_balance));
-        Serial.println("Total H/s      : " + String(totalHashrate));
-        Serial.println("AVG H/s        : " + String(avgHashrate));
-        Serial.println("Total Accepted : " + String(miner_accepted));
-        Serial.println("Total Reject   : " + String(miner_rejected));
-        Serial.println("+++++++++++++++++++++++++++++++++++++++++++");
-        Serial.println("Nama RIG       : " + String(miner_identifier));
-        Serial.println("Total Alat     : " + String(total_miner) + " Alat");
-        Serial.println("Software       : " + String(miner_software));
-        Serial.println("===================================================");
+//        Serial.println("DUCO Username  : " + String(result_balance_username));
+//        Serial.println("Total DUCO     : " + String(result_balance_balance));
+//        Serial.println("Total H/s      : " + String(totalHashrate));
+//        Serial.println("AVG H/s        : " + String(avgHashrate));
+//        Serial.println("Total Accepted : " + String(miner_accepted));
+//        Serial.println("Total Reject   : " + String(miner_rejected));
+//        Serial.println("+++++++++++++++++++++++++++++++++++++++++++");
+//        Serial.println("Nama RIG       : " + String(miner_identifier));
+//        Serial.println("Total Alat     : " + String(total_miner) + " Alat");
+//        Serial.println("Software       : " + String(miner_software));
+//        Serial.println("===================================================");
 
         Blynk.virtualWrite(V13, result_balance_username);
         Blynk.virtualWrite(V14, result_balance_balance);
