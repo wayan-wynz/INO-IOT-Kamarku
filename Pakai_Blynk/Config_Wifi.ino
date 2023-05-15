@@ -12,14 +12,19 @@ void setupWifi()
   while(WiFi.status() != WL_CONNECTED)
   {
     delay(1000);
-    digitalWrite(LED_PIN, LOW);
+//    digitalWrite(LED_PIN, LOW);
     digitalWrite(ledPin, HIGH);
-    digitalWrite(relay, LOW);
+//    digitalWrite(relay, LOW);
   }
   //apabila terkoneksi
-  digitalWrite(LED_PIN, HIGH);
-  digitalWrite(ledPin, LOW);
-  digitalWrite(relay, HIGH);
+  Serial.println();
+  Serial.print("Wifi Terhubung ");  
+  Serial.println(WiFi.localIP());
+//  digitalWrite(LED_PIN, HIGH);
+//  digitalWrite(ledPin, LOW);
+//  digitalWrite(relay, HIGH);
+
+  
 //  lcd1.clear();
 //  lcd1.print(4, 0, "IP ADDRESS");
 //  lcd1.print(3, 1, WiFi.localIP());
