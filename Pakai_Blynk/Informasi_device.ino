@@ -12,8 +12,10 @@ void InfoDevice()
 {
   float hum = dht.readHumidity();
   float tem = dht.readTemperature();
-  if (runningInfoDevice(MillisInfoDevice))
+  if (runningInfoDevice(60000))
   {
+    Blynk.virtualWrite(V28, WiFi.localIP().toString());
+    
     terminal_device.clear(); //Memulai terminal
     
     terminal_device.println(F("Blynk V" BLYNK_VERSION ": IOT Kamarku!"));
