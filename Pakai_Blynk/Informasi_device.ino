@@ -15,9 +15,7 @@ void InfoDevice()
   if (runningInfoDevice(60000))
   {
     Blynk.virtualWrite(V28, WiFi.localIP().toString());
-    
     terminal_device.clear(); //Memulai terminal
-    
     terminal_device.println(F("Blynk V" BLYNK_VERSION ": IOT Kamarku!"));
     terminal_device.println(F("By I WAYAN SUJANE"));
     terminal_device.println(F("==============================================="));
