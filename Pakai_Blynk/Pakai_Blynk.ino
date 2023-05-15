@@ -1,14 +1,16 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
-//char ssid[] = "EIGRP_Routing";
-//char pass[] = "123456789";
+#include <ESP8266Ping.h>
+
+char ssid[] = "EIGRP_Routing-TL";
+char pass[] = "1234567890";
 //char ssid[] = "Kost caca cia";
 //char pass[] = "1122334455";
 //char ssid[] = "Eigrp_Routingx";
 //char pass[] = "1122334455";
 
-char ssid[] = "MUTIARA 3";
-char pass[] = "10807007";
+//char ssid[] = "MUTIARA 3";
+//char pass[] = "10807007";
 //char ssid[] = "Ezcavalent_";
 //char pass[] = "1234567890";
 
@@ -79,9 +81,9 @@ BlynkTimer timer;
 
 const String ducoUser = "wayan_wynz"; // Change this to your Duino-Coin username
 const String ducoReportJsonUrl = "https://server.duinocoin.com/v2/users/" + ducoUser + "?limit=1";
-const int run_in_ms = 5000;
+//const int run_in_ms = 5000;
 
-const int MillisInfoDevice = 60000;
+//const int MillisInfoDevice = 60000;
 //const int MillisLED = 500;
 
 const int ledPin =  LED_BUILTIN;
@@ -91,16 +93,41 @@ WidgetTerminal terminalDuco(V10);
 WidgetTerminal terminal_device(V11);
 //WidgetTerminal terminal_hosting(V26);
 
+//Ping ke google
+const char* remote_host = "www.google.com"; 
+WiFiEventHandler wifiConnectHandler;
+WiFiEventHandler wifiDisconnectHandler;
+
+void onWifiConnect(const WiFiEventStationModeGotIP& event) {
+  Serial.println("Wifi Terhubung...");
+  Serial.print("IP address: ");
+  Serial.println(WiFi.localIP());
+  digitalWrite(LED_PIN, HIGH);
+  digitalWrite(relay, HIGH);
+}
+
+void onWifiDisconnect(const WiFiEventStationModeDisconnected& event) {
+  Serial.println("Disconnected...");
+  WiFi.disconnect();
+  WiFi.begin(ssid, pass);
+  digitalWrite(ledPin, HIGH);
+  digitalWrite(LED_PIN, LOW);
+  digitalWrite(relay, LOW);
+}
+
 
 void setup() {
     Serial.begin(115200);
     pinMode(LED_PIN, OUTPUT);
     pinMode(ledPin, OUTPUT);
     pinMode(relay, OUTPUT);
+    wifiConnectHandler = WiFi.onStationModeGotIP(onWifiConnect);
+    wifiDisconnectHandler = WiFi.onStationModeDisconnected(onWifiDisconnect);
     setupWifi();
+    Serial.print("RSSI: ");
+    Serial.println(WiFi.RSSI());
     Blynk.begin(auth, ssid, pass, "iot.serangkota.go.id", 8080);
     FastLED.addLeds<LED_TYPE, PIN1, COLOR_ORDER>(leds1, NUM_LEDS1).setCorrection( TypicalLEDStrip );
-//    setupWifi();
 //    setupBotTele();
     setupYoutube();
     setupSensor();
@@ -108,6 +135,7 @@ void setup() {
 
 void loop() 
 {
+  cekInternet();
   Blynk.run();
   timer.run();
   Duco_view();
